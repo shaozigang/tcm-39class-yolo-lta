@@ -31,7 +31,10 @@ results/
     synthetic_robustness_final_combined.csv      # Gaussian blur / noise / brightness robustness, 3 models
     synthetic_robustness_efficientnet_b0.csv     # Robustness breakdown for the EfficientNet-B0 baseline
     efficientnet_b0_baseline_result.json         # EfficientNet-B0 baseline summary (params, clean top-1, n_test)
-    training_curve_run16.csv ... run19.csv       # Per-epoch training/validation curves (Ultralytics logs)
+    training_curve_yolov12n_cls.csv              # Per-epoch training/validation curve, YOLOv12n-cls
+    training_curve_yolov12n_cls_lta.csv          # Per-epoch training/validation curve, YOLOv12n-cls + LTA
+    training_curve_yolov12s_cls.csv              # Per-epoch training/validation curve, YOLOv12s-cls
+    training_curve_yolov12s_cls_lta.csv          # Per-epoch training/validation curve, YOLOv12s-cls + LTA
 
   confusion_matrices/
     confusion_matrix_yolov12s_cls_standard.jpg   # Row-normalized 39x39 confusion matrix, YOLOv12s-cls
