@@ -1,0 +1,45 @@
+{
+  "description": "Definition of the 39-class plant-derived-only subset used in this study, derived from the 47-class source dataset (Figshare DOI 10.6084/m9.figshare.31136233).",
+  "source_dataset": {
+    "name": "Image dataset of toxic Chinese herbal medicines",
+    "doi": "10.6084/m9.figshare.31136233",
+    "url": "https://doi.org/10.6084/m9.figshare.31136233",
+    "license": "CC BY",
+    "total_classes": 47
+  },
+  "included_classes": {
+    "count": 39,
+    "material_type": "plant-derived",
+    "names": [
+      "badou", "baifuzi", "baiguo", "banxia", "beidougen", "caowu", "changshan", "chonglou",
+      "chuanlianzi", "gansui", "heshi", "hongdaji", "huajiao", "jili", "jiulixiang", "kulianpi",
+      "langdu", "liangmianzhen", "maqianzi", "mianmaguanzhong", "mubiezi", "naoyanghua",
+      "qianjinzi", "qianniuzi", "shancigu", "shanglu", "shechuangzi", "tiannanxing",
+      "tianxianzi", "tujingpi", "wuzhuyu", "xiangjiapi", "xiangsizi", "xianmao", "yadanzi",
+      "yangjinhua", "yingsuqiao", "yuanhua", "zhuyazao"
+    ]
+  },
+  "excluded_classes": {
+    "count": 8,
+    "reason": "Excluded to restrict scope to plant-derived decoction pieces exclusively, avoiding confounding the texture-attention mechanism (LTA) with material-type effects unrelated to fine-grained visual discrimination among botanically similar specimens.",
+    "animal_derived": {
+      "count": 5,
+      "names": ["banmao", "chansu", "jinqian_baihuashe", "quanxie", "wugong"]
+    },
+    "mineral_derived": {
+      "count": 3,
+      "names": ["baifan", "xionghuang", "zhusha"]
+    }
+  },
+  "splits_used": {
+    "train": 1981,
+    "val": 634,
+    "test": 636,
+    "note": "The original release's supplementary 'test_subset' partition (476 images) was found to be a byte-identical (MD5-identical) duplicate of the validation split during data-quality checks and was therefore excluded from use as an independent evaluation set. All test-set metrics reported in the manuscript refer exclusively to the 636-image held-out test partition."
+  },
+  "per_class_sample_range": {
+    "min": 25,
+    "max": 66,
+    "note": "Reflects the natural class imbalance of the source collection; no imposed sampling scheme was applied."
+  }
+}

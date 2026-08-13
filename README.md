@@ -14,11 +14,16 @@ This repository accompanies a manuscript (in preparation / under review) on fine
   - 3 mineral-derived material classes
 
   This exclusion was made because the modeling approach and augmentation pipeline in this study are designed and validated for plant-material (dried herb/decoction-piece) images; animal- and mineral-derived materials have different visual/texture characteristics that were out of scope for this work.
+- **Class subset definition**: The exact list of the 39 retained classes and the 8 excluded classes (with material-type breakdown) is machine-readable in [`data/class_subset_definition.json`](data/class_subset_definition.json).
 - **Splits used**: train (1981 images) / val (634 images) / test (636 images). An additional `test_subset` (476 images) provided with the original dataset was found to be byte-identical (MD5-identical) to the validation split during our data-quality checks and was therefore discarded; robustness was instead assessed via synthetic perturbations (see below).
 
 ## What's in this repository
 
 ```
+data/
+  class_subset_definition.json             # The 39 retained plant-derived classes and the 8 excluded
+                                            # (5 animal + 3 mineral) classes, with source-dataset metadata
+
 notebooks/
   training_and_evaluation_pipeline.ipynb   # End-to-end Colab pipeline: data prep, training of all 5 models,
                                             # LTA module implementation, evaluation, Grad-CAM, confusion
