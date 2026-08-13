@@ -34,8 +34,8 @@ results/
     training_curve_run16.csv ... run19.csv       # Per-epoch training/validation curves (Ultralytics logs)
 
   confusion_matrices/
-    confusion_matrix_YOLOv12s-cls_Standard.jpg   # Row-normalized 39x39 confusion matrix, YOLOv12s-cls
-    confusion_matrix_YOLOv12s-cls_plus_LTA.jpg   # Row-normalized 39x39 confusion matrix, YOLOv12s-cls + LTA
+    confusion_matrix_yolov12s_cls_standard.jpg   # Row-normalized 39x39 confusion matrix, YOLOv12s-cls
+    confusion_matrix_yolov12s_cls_lta.jpg        # Row-normalized 39x39 confusion matrix, YOLOv12s-cls + LTA
 
   gradcam_rescued_cases/
     rescued_*.jpg   # Grad-CAM 3-panel comparisons (original | Standard attention | +LTA attention) for test
