@@ -1,0 +1,4 @@
+model,params_M,clean,gaussian_blur,gaussian_noise,brightness_shift,blur_drop,noise_drop,brightness_drop,avg_drop
+YOLOv12s-cls (Standard),6.02,82.39,41.51,53.93,81.6,40.88,28.46,0.79,23.38
+YOLOv12s-cls + LTA,6.05,83.81,36.64,55.97,81.76,47.17,27.84,2.05,25.69
+EfficientNet-B0 (Baseline),4.06,84.43,22.48,19.18,73.11,61.95,65.25,11.32,46.17
