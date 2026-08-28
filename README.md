@@ -1,93 +1,170 @@
-# TCM-39: Fine-Grained Classification of Toxic Chinese Herbal Decoction Pieces with YOLOv12-cls and a Lightweight Triple Attention (LTA) Module
+# Toxic Chinese Herbal Medicine Classification — 39-Class Benchmark
 
-This repository accompanies a manuscript (in preparation / under review) on fine-grained image classification of 39 classes of Traditional Chinese Medicine (TCM) decoction pieces, with a focus on visually similar and potentially toxic herb pairs. It contains the training/evaluation code, the resulting metrics tables, confusion matrices, and Grad-CAM visualizations reported in the paper, so that reviewers and readers can inspect and reproduce the reported results.
+**Headline result: lightweight attention modules produced no reproducible accuracy gain on this benchmark.**
 
-> Status: results and code are frozen as reported in the manuscript. This repository will be updated with the DOI/citation of the accepted paper once available.
+An earlier single-seed run in this repository measured a +1.42 pp Top-1 improvement from a
+Lightweight Texture Attention (LTA) module inserted into YOLOv12s-cls. A subsequent
+4 × 3 factorial experiment (four attention variants × three random seeds, twelve training
+runs) showed that this gain does not reproduce. All nine paired within-seed bootstrap 95%
+confidence intervals include zero. The repository keeps both the original and the
+supplementary results so the change of conclusion is fully auditable.
 
-## Dataset
+Associated manuscript: submitted to *PeerJ Computer Science* as
+"No reproducible accuracy gain from lightweight attention modules in fine-grained
+classification of 39 toxic Chinese herbal medicines: a multi-seed, bootstrap-interval
+evaluation of YOLOv12-cls and EfficientNet-B0".
 
-- **Source**: [Image dataset of toxic Chinese herbal medicines](https://figshare.com/articles/dataset/Image_dataset_of_toxic_Chinese_herbal_medicines/31136233?file=61286866), Figshare, 2026.
-- **Dataset DOI**: [10.6084/m9.figshare.31136233](https://doi.org/10.6084/m9.figshare.31136233)
-- **License**: The original dataset is distributed under a **CC BY** license by its authors. All usage in this repository/manuscript complies with that license; the original dataset is **not redistributed** here — only derived metrics, trained-model outputs, and code are included.
-- **Modifications made for this study**: The original dataset contains 47 classes. For this study we retained only the **39 plant-material classes** and excluded:
-  - 5 animal-derived material classes
-  - 3 mineral-derived material classes
+---
 
-  This exclusion was made because the modeling approach and augmentation pipeline in this study are designed and validated for plant-material (dried herb/decoction-piece) images; animal- and mineral-derived materials have different visual/texture characteristics that were out of scope for this work.
-- **Class subset definition**: The exact list of the 39 retained classes and the 8 excluded classes (with material-type breakdown) is machine-readable in [`data/class_subset_definition.json`](data/class_subset_definition.json).
-- **Splits used**: train (1981 images) / val (634 images) / test (636 images). An additional `test_subset` (476 images) provided with the original dataset was found to be byte-identical (MD5-identical) to the validation split during our data-quality checks and was therefore discarded; robustness was instead assessed via synthetic perturbations (see below).
+## 1. Dataset
 
-## What's in this repository
+- Source: public Figshare deposit of real-world toxic Chinese herbal medicine images,
+  CC BY, DOI [10.6084/m9.figshare.31136233](https://doi.org/10.6084/m9.figshare.31136233),
+  released with Zhu et al. (2026), *PLOS ONE* 21:e0344262.
+- This work uses a **plant-derived-only 39-class subset**. Excluded: 5 animal-derived
+  classes (banmao, chansu, jinqian baihuashe, quanxie, wugong) and 3 mineral classes
+  (baifan, xionghuang, zhusha). Exact class list: `data/class_subset_definition.json`.
+- Splits: **1,981 train / 634 validation / 636 test**. Per-class counts 25–66 images.
+- **Data-quality finding:** the supplementary `test_subset` partition (476 images) shipped
+  with the copy we obtained is **MD5-identical to the validation split**. It is excluded.
+  Any study that treated it as held-out data would report validation accuracy as test
+  accuracy with no visible symptom.
+- All experiments run behind a hard precondition gate that aborts unless the dataset is
+  exactly 39 classes with 1,981/634/636 images.
+
+## 2. Key results
+
+### 2.1 Multi-seed attention ablation (YOLOv12s-cls, n = 636 test, seeds 42/123/2026)
+
+| Variant | Top-1 mean ± SD | Top-5 mean ± SD | Δ Top-1 vs. baseline | Params | GFLOPs | Latency (ms/img) |
+|---|---|---|---|---|---|---|
+| Baseline (no attention) | 82.49% ± 0.09 | 96.02% ± 0.40 | — | 6,034,663 | 1.5130 | 0.856 |
+| SE | 82.55% ± 0.57 | 95.96% ± 0.36 | +0.05 ± 0.65 pp | 6,067,431 | 1.5132 | 0.849 |
+| CBAM | 82.29% ± 1.18 | 96.12% ± 0.48 | −0.21 ± 1.18 pp | 6,067,529 | 1.5132 | 0.863 |
+| LTA | 82.18% ± 0.74 | 96.38% ± 0.57 | −0.31 ± 0.69 pp | 6,067,529 | 1.5132 | 0.864 |
+
+Two of three attention variants sit **below** the no-attention baseline. The
+within-variant seed spread (up to 2.36 pp for CBAM) exceeds every between-variant mean
+difference by roughly an order of magnitude.
+
+### 2.2 Paired within-seed bootstrap tests (10,000 paired resamples)
+
+All nine comparisons non-significant; Δ ranges −1.42 pp to +0.94 pp; two-sided
+p = 0.258–0.976; **every 95% CI includes zero**. See
+`results/supplementary_attention_ablation/bootstrap_paired_differences.csv`.
+
+### 2.3 Benchmark resolution limit
+
+At ~82% accuracy on 636 test images, a bootstrap 95% CI spans about **±2.9 pp**. Effects
+of 1–3 pp — the size of most published attention gains in this domain — are not
+resolvable on a test set of this size, regardless of model design.
+
+### 2.4 Honest disclosure about LTA
+
+In the unified factorial harness, **LTA is structurally identical to CBAM** — same
+dual-pooling channel branch, reduction ratio 16, 7×7 spatial kernel, identical parameter
+count (6,067,529). The only difference is that the final layer of each attention branch is
+zero-initialized. The LTA-vs-CBAM contrast is therefore an initialization-only contrast,
+and the 0.10 pp gap between their three-seed means is an empirical **noise floor** for this
+pipeline at zero structural change.
+
+### 2.5 What the benchmark does resolve
+
+| Factor | Effect | Verdict |
+|---|---|---|
+| Augmentation strength (strong vs. none) | +5.19 pp | Large, actionable |
+| Architecture robustness (EfficientNet-B0 vs. YOLOv12s-cls mean drop) | 46.17 pp vs. 23.38–25.69 pp | Large, actionable |
+| Inference latency (EfficientNet-B0 vs. YOLO-cls) | 1.74 ms vs. 0.86 ms/img | Large, actionable |
+| Attention insertion | ≤0.31 pp, CI includes zero | Not resolvable |
+
+EfficientNet-B0 has the highest clean accuracy (84.43%) and the fewest parameters
+(4.06 M) but collapses to 19.18% under Gaussian noise. YOLOv12s-cls variants are roughly
+twice as robust and roughly twice as fast.
+
+## 3. Repository layout
 
 ```
 data/
-  class_subset_definition.json             # The 39 retained plant-derived classes and the 8 excluded
-                                            # (5 animal + 3 mineral) classes, with source-dataset metadata
-
+  class_subset_definition.json            # exact 39-class list + split counts
 notebooks/
-  training_and_evaluation_pipeline.ipynb   # End-to-end Colab pipeline: data prep, training of all 5 models,
-                                            # LTA module implementation, evaluation, Grad-CAM, confusion
-                                            # matrices, augmentation study, synthetic robustness testing
-
+  training_and_evaluation_pipeline.ipynb   # original cross-architecture experiments
+  supplementary_attention_ablation_pipeline.ipynb  # 4x3 factorial + bootstrap analysis
 results/
-  tables/
-    test_set_final_results.csv                  # Final test-set Top-1/Top-5 for all 5 models
-    augmentation_comparison_final_v2.csv         # no_aug / light_aug / strong_aug comparison (YOLOv12s-cls)
-    synthetic_robustness_final_combined.csv      # Gaussian blur / noise / brightness robustness, 3 models
-    synthetic_robustness_efficientnet_b0.csv     # Robustness breakdown for the EfficientNet-B0 baseline
-    efficientnet_b0_baseline_result.json         # EfficientNet-B0 baseline summary (params, clean top-1, n_test)
-    training_curve_yolov12n_cls.csv              # Per-epoch training/validation curve, YOLOv12n-cls
-    training_curve_yolov12n_cls_lta.csv          # Per-epoch training/validation curve, YOLOv12n-cls + LTA
-    training_curve_yolov12s_cls.csv              # Per-epoch training/validation curve, YOLOv12s-cls
-    training_curve_yolov12s_cls_lta.csv          # Per-epoch training/validation curve, YOLOv12s-cls + LTA
-
-  confusion_matrices/
-    confusion_matrix_yolov12s_cls_standard.jpg   # Row-normalized 39x39 confusion matrix, YOLOv12s-cls
-    confusion_matrix_yolov12s_cls_lta.jpg        # Row-normalized 39x39 confusion matrix, YOLOv12s-cls + LTA
-
-  gradcam_rescued_cases/
-    rescued_*.jpg   # Grad-CAM 3-panel comparisons (original | Standard attention | +LTA attention) for test
-                     # images that YOLOv12s-cls (Standard) misclassified but YOLOv12s-cls+LTA classified
-                     # correctly. Filenames indicate the ground-truth class.
+  tables/                                  # original single-seed results (unchanged)
+  supplementary_attention_ablation/        # multi-seed factorial results
+    attention_ablation_metrics.csv         # all 12 runs, per-run metrics
+    multiseed_summary.csv                  # variant-level mean +/- SD
+    multiseed_delta_summary.csv            # deltas vs. baseline
+    bootstrap_model_accuracy_ci.csv        # per-run bootstrap 95% CIs
+    bootstrap_paired_differences.csv       # paired within-seed tests + p-values
+    efficientnet_b0_metrics_complete.csv   # EfficientNet-B0 reference metrics
+  confusion_matrices/                      # single-seed Standard vs. LTA
+  gradcam_rescued_cases/                   # descriptive only, see caveat below
+figures/
+  fig_multiseed_attention_ci.png           # Figure 1
+  fig_paired_bootstrap_deltas.png          # Figure 2
+  fig_accuracy_robustness_latency.png      # Figure 3
+  make_figures.py                          # regenerates all three figures
 ```
 
-## Models evaluated
+## 4. Experimental protocol
 
-| Model | Test Top-1 (%) | Test Top-5 (%) | Params |
-|---|---|---|---|
-| YOLOv11n-cls | 82.08 | 96.70 | 1,575,983 |
-| YOLOv12n-cls | 79.25 | 95.60 | 1,729,647 |
-| YOLOv12n-cls + LTA | 76.57 | 95.91 | 1,737,937 |
-| YOLOv12s-cls | 82.39 | 96.07 | 6,018,231 |
-| YOLOv12s-cls + LTA | 83.81 | 95.28 | 6,051,097 |
-| EfficientNet-B0 (baseline) | 84.43 | — | 4,060,000 |
+- Training: 50 epochs max, batch 32, imgsz 224, early-stopping patience 15 on validation
+  Top-1. Best-validation checkpoint retained. **The test set was never used for model
+  selection or hyperparameter tuning.**
+- Hardware/software: Tesla T4 (Google Colab), Python 3.12.13, Ultralytics 8.4.118,
+  PyTorch 2.11.0 (CUDA 12.8).
+- Bootstrap: `N_BOOT = 10000`, `BOOTSTRAP_SEED = 20260827`, `numpy.random.default_rng`.
+- Latency: batch 32, CUDA-synchronized, amortized per image, Tesla T4.
+- Robustness perturbations (fixed seed 42): Gaussian blur radius 2.5; additive Gaussian
+  noise σ = 25 (0–255 scale); brightness × 0.5.
+- Runs without a verified completion marker are renamed and excluded, never reused.
 
-Full numbers, per-condition breakdowns, and robustness results are in `results/tables/`.
+## 5. Caveats
 
-## LTA (Lightweight Triple Attention) module
+- Three seeds per variant establishes that seed spread exceeds variant differences; it does
+  not estimate variance precisely. The baseline's SD of 0.09 pp reflects only three runs.
+- This is a **failure to detect** an effect on this benchmark, not proof that lightweight
+  attention never helps.
+- Robustness and augmentation numbers are single-run point estimates.
+- The Grad-CAM and error-decomposition artefacts describe two specific checkpoints. Since
+  the aggregate effect is not established, they are **not** evidence that attention helps.
+- Parameter counts differ slightly between the original pipeline (backbone-only count) and
+  the unified factorial harness (full assembled model). All attention conclusions rest on
+  the unified harness.
 
-A lightweight channel + spatial attention block (`ChannelAttention` -> `SpatialAttention`) is injected at the second-to-last layer of the YOLOv12-cls backbone via an Ultralytics training callback (`on_pretrain_routine_end`). The wrapper class preserves the attributes required by Ultralytics' internal graph/serialization machinery so the augmented model remains fully trainable and checkpoint-compatible. See `notebooks/training_and_evaluation_pipeline.ipynb` for the full implementation and injection logic.
+## 6. Reproducing the analysis
 
-YOLOv12 classification weights are not hosted on Ultralytics' official release assets and were obtained from the upstream authors' release page: `https://github.com/sunsmarterjie/yolov12/releases/download/cls/`.
+```bash
+# regenerate all three manuscript figures from the released CSVs
+python figures/make_figures.py
+```
 
-## Reproducing the results
+The factorial experiment itself is reproduced by running
+`notebooks/supplementary_attention_ablation_pipeline.ipynb` on a Colab T4 with the dataset
+mounted; it re-runs all twelve trainings and recomputes every bootstrap interval and
+p-value reported above.
 
-The notebook is written for Google Colab. To reproduce:
+## 7. Citation
 
-1. Obtain the dataset from the Figshare source above and prepare it as a 39-class ImageFolder-style directory (train/val/test), excluding the 5 animal and 3 mineral classes as described.
-2. Open `notebooks/training_and_evaluation_pipeline.ipynb` in Colab (or a local Jupyter environment with a GPU), mount your data, and run the cells in order — each stage (baseline training, LTA training, evaluation, augmentation study, robustness study, Grad-CAM, confusion matrices) is self-contained in its own cell/section.
-3. Random seeds and augmentation/perturbation parameters used for the reported results are fixed in the notebook (e.g., synthetic robustness perturbations use seed=42, Gaussian blur radius=2.5, Gaussian noise sigma=25, brightness factor=0.5).
+If you use this benchmark or its results, please cite both the source dataset and this
+work:
 
-## License
+> Zhu G, Joo J, Park S, Kim SC. 2026. Toxic Chinese herbal medicine recognition in
+> real-world images via multi-scale and attention-enhanced EfficientNetV2. *PLOS ONE*
+> 21:e0344262. https://doi.org/10.1371/journal.pone.0344262
 
-- **Code** in this repository (`notebooks/`) is released under the MIT License — see [LICENSE](LICENSE).
-- **Result artifacts** (`results/`) generated by the authors from model training/evaluation are released under CC BY 4.0.
-- **Dataset**: not redistributed here. Refer to the original Figshare CC BY license for the source dataset.
+> Shao Z. No reproducible accuracy gain from lightweight attention modules in fine-grained
+> classification of 39 toxic Chinese herbal medicines: a multi-seed, bootstrap-interval
+> evaluation of YOLOv12-cls and EfficientNet-B0. Submitted to *PeerJ Computer Science*.
 
-## Citation
+## 8. License
 
-A citation block with the full paper reference and DOI will be added here once the manuscript is accepted and indexed.
+Code and analysis in this repository: see `LICENSE`. The underlying image dataset is CC BY
+and remains the property of its original authors.
 
-For the dataset, please cite:
+## Contact
 
-> Image dataset of toxic Chinese herbal medicines. Figshare. https://doi.org/10.6084/m9.figshare.31136233
+Zigang Shao — The Second Affiliated Hospital of Heilongjiang University of Chinese
+Medicine, Harbin, China — shaozigang@163.com — ORCID
+[0009-0008-9105-1861](https://orcid.org/0009-0008-9105-1861)

@@ -1,0 +1,2 @@
+variant,seed,top1_pct,top5_pct,params,gflops,mean_inference_ms_per_image,n_test,checkpoint,prediction_csv
+EfficientNet-B0,42,84.43396226415094,96.85534591194968,4057507,,1.7388032421316573,636,/content/drive/MyDrive/TCM_YOLOv12_runs/efficientnet_b0/best.pt,/content/drive/MyDrive/TCM_YOLOv12_runs/supplementary_attention_ablation/predictions/efficientnet_b0_test_predictions.csv
