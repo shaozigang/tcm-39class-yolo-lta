@@ -1,4 +1,0 @@
-augmentation,test_top1,test_top5,checkpoint_used
-no_aug,77.2,94.81,best.pt
-light_aug,78.93,94.97,best.pt
-strong_aug,82.39,96.07,best.pt(重跑，验证完整)

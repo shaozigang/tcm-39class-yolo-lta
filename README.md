@@ -1,13 +1,14 @@
 # Toxic Chinese Herbal Medicine Classification — 39-Class Benchmark
 
-**Headline result: lightweight attention modules produced no reproducible accuracy gain on this benchmark.**
+**Headline result: lightweight attention modules produced no reproducible accuracy gain on
+this benchmark.**
 
 An earlier single-seed run in this repository measured a +1.42 pp Top-1 improvement from a
 Lightweight Texture Attention (LTA) module inserted into YOLOv12s-cls. A subsequent
 4 × 3 factorial experiment (four attention variants × three random seeds, twelve training
 runs) showed that this gain does not reproduce. All nine paired within-seed bootstrap 95%
 confidence intervals include zero. The repository keeps both the original and the
-supplementary results so the change of conclusion is fully auditable.
+multi-seed results so the change of conclusion is fully auditable.
 
 Associated manuscript: submitted to *PeerJ Computer Science* as
 "No reproducible accuracy gain from lightweight attention modules in fine-grained
@@ -30,7 +31,10 @@ evaluation of YOLOv12-cls and EfficientNet-B0".
   Any study that treated it as held-out data would report validation accuracy as test
   accuracy with no visible symptom.
 - All experiments run behind a hard precondition gate that aborts unless the dataset is
-  exactly 39 classes with 1,981/634/636 images.
+  exactly 39 classes with 1,981/634/636 images. Items that are not one of the 39 classes —
+  in the copy we obtained, six `.ipynb_checkpoints` directories holding 35 duplicated
+  images — are quarantined before counting; every such item is listed in
+  `environment/environment_and_protocol.json`.
 
 ## 2. Key results
 
@@ -51,7 +55,7 @@ difference by roughly an order of magnitude.
 
 All nine comparisons non-significant; Δ ranges −1.42 pp to +0.94 pp; two-sided
 p = 0.258–0.976; **every 95% CI includes zero**. See
-`results/supplementary_attention_ablation/bootstrap_paired_differences.csv`.
+`results/multiseed_attention_ablation/bootstrap_paired_differences.csv`.
 
 ### 2.3 Benchmark resolution limit
 
@@ -84,27 +88,77 @@ twice as robust and roughly twice as fast.
 ## 3. Repository layout
 
 ```
+CITATION.cff                                   # citation metadata
+.zenodo.json                                   # Zenodo archival metadata
 data/
-  class_subset_definition.json            # exact 39-class list + split counts
+  class_subset_definition.json                 # exact 39-class list + split counts
 notebooks/
-  training_and_evaluation_pipeline.ipynb   # original cross-architecture experiments
-  supplementary_attention_ablation_pipeline.ipynb  # 4x3 factorial + bootstrap analysis
+  01_cross_architecture_training_and_evaluation.ipynb
+  02_multiseed_attention_ablation.ipynb
+environment/
+  environment_and_protocol.json                # versions, seeds, split counts,
+                                               # pretrained-checkpoint MD5,
+                                               # quarantined non-39-class items
+  excluded_non39_items_audit.csv               # the quarantined items, as a table
+  training_task_status.csv                     # completion status of all 12 runs
+  result_manifest.json                         # size + MD5 of every other released
+                                               # file, paths relative to the repo root
 results/
-  tables/                                  # original single-seed results (unchanged)
-  supplementary_attention_ablation/        # multi-seed factorial results
-    attention_ablation_metrics.csv         # all 12 runs, per-run metrics
-    multiseed_summary.csv                  # variant-level mean +/- SD
-    multiseed_delta_summary.csv            # deltas vs. baseline
-    bootstrap_model_accuracy_ci.csv        # per-run bootstrap 95% CIs
-    bootstrap_paired_differences.csv       # paired within-seed tests + p-values
-    efficientnet_b0_metrics_complete.csv   # EfficientNet-B0 reference metrics
-  confusion_matrices/                      # single-seed Standard vs. LTA
-  gradcam_rescued_cases/                   # descriptive only, see caveat below
+  cross_architecture/                          # first campaign, single seed (42)
+    test_set_results.csv                       # six models, Top-1/Top-5/params
+    augmentation_regime_comparison.csv         # none / light / strong augmentation
+    synthetic_robustness.csv                   # clean + 3 perturbations, 3 models
+    training_curves/                           # per-epoch logs, 4 of the runs
+  multiseed_attention_ablation/                # primary experiment, 12 runs
+    attention_ablation_metrics.csv             # all 12 runs, per-run metrics
+    multiseed_summary.csv                      # variant-level mean +/- SD
+    multiseed_delta_summary.csv                # deltas vs. baseline
+    bootstrap_model_accuracy_ci.csv            # per-run bootstrap 95% CIs
+    bootstrap_paired_differences.csv           # paired within-seed tests + p-values
+    efficientnet_b0_metrics_complete.csv       # EfficientNet-B0 reference metrics
+    predictions/                               # 13 files x 636 rows, per-image records
+  confusion_matrices/                          # single-seed Standard vs. LTA, 39x39
+  gradcam_corrected_cases/                     # descriptive only, see caveat below
 figures/
-  fig_multiseed_attention_ci.png           # Figure 1
-  fig_paired_bootstrap_deltas.png          # Figure 2
-  fig_accuracy_robustness_latency.png      # Figure 3
-  make_figures.py                          # regenerates all three figures
+  fig_multiseed_attention_ci.png               # Figure 1
+  fig_paired_bootstrap_deltas.png              # Figure 2
+  fig_accuracy_robustness_latency.png          # Figure 3
+  make_figures.py                              # regenerates all three figures
+```
+
+### 3.1 Where each manuscript item comes from
+
+| Manuscript item | File in this repository |
+|---|---|
+| Table 1 — six architectures, single seed | `results/cross_architecture/test_set_results.csv` |
+| Table 2 — augmentation regimes | `results/cross_architecture/augmentation_regime_comparison.csv` |
+| Table 3 — 12 runs with bootstrap CIs | `results/multiseed_attention_ablation/attention_ablation_metrics.csv` + `bootstrap_model_accuracy_ci.csv` |
+| Table 4 — variant means across seeds | `results/multiseed_attention_ablation/multiseed_summary.csv` |
+| Table 5 — paired within-seed differences | `results/multiseed_attention_ablation/bootstrap_paired_differences.csv` (+ `multiseed_delta_summary.csv`) |
+| Table 6 — per-image discordance, McNemar | notebook 01, step 13 (outputs retained in the notebook) |
+| Table 7 — robustness and latency | `results/cross_architecture/synthetic_robustness.csv` |
+| Figures 1–3 | `figures/*.png`, regenerated by `figures/make_figures.py` |
+| Environment, seeds, checkpoint MD5 | `environment/environment_and_protocol.json` |
+
+Every Top-1 and Top-5 value in Table 3 and in `attention_ablation_metrics.csv` can be
+recomputed from `results/multiseed_attention_ablation/predictions/` alone, for example:
+
+```python
+import pandas as pd
+d = pd.read_csv("results/multiseed_attention_ablation/predictions/"
+                "v12s_lta_seed42_test_predictions.csv")
+print(len(d), 100 * d.top1_correct.mean(), 100 * d.top5_correct.mean())
+# 636 83.01886792452831 95.75471698113208
+```
+
+### 3.2 Verifying the release
+
+```python
+import hashlib, json, pathlib
+m = json.load(open("environment/result_manifest.json"))
+bad = [e["path"] for e in m["files"]
+       if hashlib.md5(pathlib.Path(e["path"]).read_bytes()).hexdigest() != e["md5"]]
+print(m["file_count"], "files;", len(bad), "checksum mismatches")
 ```
 
 ## 4. Experimental protocol
@@ -112,13 +166,21 @@ figures/
 - Training: 50 epochs max, batch 32, imgsz 224, early-stopping patience 15 on validation
   Top-1. Best-validation checkpoint retained. **The test set was never used for model
   selection or hyperparameter tuning.**
-- Hardware/software: Tesla T4 (Google Colab), Python 3.12.13, Ultralytics 8.4.118,
+- Hardware: single Tesla T4 (Google Colab) for every run.
+- Software, first campaign (notebook 01): Python 3.12.13, Ultralytics 8.4.117,
   PyTorch 2.11.0 (CUDA 12.8).
+- Software, factorial campaign (notebook 02): Python 3.13.15, Ultralytics 8.4.131,
+  PyTorch 2.11.0 (CUDA 12.8), as recorded in
+  `environment/environment_and_protocol.json`. Colab's default image advanced between the
+  two campaigns; all twelve factorial runs share one environment, so the attention
+  comparison is internally consistent.
+- Pretrained YOLOv12s-cls checkpoint MD5: `eef2947ef14ce9a4a728453f3c15fb9a`.
 - Bootstrap: `N_BOOT = 10000`, `BOOTSTRAP_SEED = 20260827`, `numpy.random.default_rng`.
 - Latency: batch 32, CUDA-synchronized, amortized per image, Tesla T4.
 - Robustness perturbations (fixed seed 42): Gaussian blur radius 2.5; additive Gaussian
   noise σ = 25 (0–255 scale); brightness × 0.5.
-- Runs without a verified completion marker are renamed and excluded, never reused.
+- Runs without a verified completion marker are renamed `*_INVALID_OR_INCOMPLETE_*` and
+  excluded, never reused.
 
 ## 5. Caveats
 
@@ -129,9 +191,19 @@ figures/
 - Robustness and augmentation numbers are single-run point estimates.
 - The Grad-CAM and error-decomposition artefacts describe two specific checkpoints. Since
   the aggregate effect is not established, they are **not** evidence that attention helps.
+  `results/gradcam_corrected_cases/` contains ten of the twenty-four images the LTA
+  checkpoint corrected, selected in the order they appear in the test set.
 - Parameter counts differ slightly between the original pipeline (backbone-only count) and
   the unified factorial harness (full assembled model). All attention conclusions rest on
   the unified harness.
+- `results/cross_architecture/training_curves/` holds per-epoch logs for four of the first
+  campaign's runs (YOLOv12n-cls, YOLOv12n-cls+LTA, YOLOv12s-cls, YOLOv12s-cls+LTA). They
+  are provenance for convergence and early stopping only; no manuscript table or figure is
+  derived from them.
+- Notebook 01 is kept as the executed record of the first campaign, including its original
+  console output. Its log messages are in Chinese, the working language of that campaign;
+  translating them would break the correspondence between source lines and stored output.
+  Notebook 02 stores no outputs and is fully in English.
 
 ## 6. Reproducing the analysis
 
@@ -141,9 +213,10 @@ python figures/make_figures.py
 ```
 
 The factorial experiment itself is reproduced by running
-`notebooks/supplementary_attention_ablation_pipeline.ipynb` on a Colab T4 with the dataset
-mounted; it re-runs all twelve trainings and recomputes every bootstrap interval and
-p-value reported above.
+`notebooks/02_multiseed_attention_ablation.ipynb` on a Colab T4, after steps 1, 2 and 5 of
+`notebooks/01_cross_architecture_training_and_evaluation.ipynb` have mounted Drive,
+unpacked the dataset and installed Ultralytics. It re-runs all twelve trainings and
+recomputes every bootstrap interval and p-value reported above.
 
 ## 7. Citation
 

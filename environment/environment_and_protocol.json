@@ -1,0 +1,81 @@
+{
+  "batch_size": 32,
+  "class_count": 39,
+  "cuda_available": true,
+  "cuda_device": "Tesla T4",
+  "dataset_counts": {
+    "test": 636,
+    "train": 1981,
+    "val": 634
+  },
+  "epochs": 50,
+  "excluded_non39_items": [
+    {
+      "image_count": 6,
+      "item": "yingsuqiao/.ipynb_checkpoints",
+      "item_type": "directory",
+      "quarantine_path": "/content/dataset_excluded_non39_1787879067/val/yingsuqiao/.ipynb_checkpoints",
+      "reason": "nested directory inside a class folder",
+      "split": "val"
+    },
+    {
+      "image_count": 1,
+      "item": "badou/.ipynb_checkpoints",
+      "item_type": "directory",
+      "quarantine_path": "/content/dataset_excluded_non39_1787879067/test/badou/.ipynb_checkpoints",
+      "reason": "nested directory inside a class folder",
+      "split": "test"
+    },
+    {
+      "image_count": 10,
+      "item": "gansui/.ipynb_checkpoints",
+      "item_type": "directory",
+      "quarantine_path": "/content/dataset_excluded_non39_1787879067/test/gansui/.ipynb_checkpoints",
+      "reason": "nested directory inside a class folder",
+      "split": "test"
+    },
+    {
+      "image_count": 16,
+      "item": "liangmianzhen/.ipynb_checkpoints",
+      "item_type": "directory",
+      "quarantine_path": "/content/dataset_excluded_non39_1787879067/test/liangmianzhen/.ipynb_checkpoints",
+      "reason": "nested directory inside a class folder",
+      "split": "test"
+    },
+    {
+      "image_count": 2,
+      "item": "shechuangzi/.ipynb_checkpoints",
+      "item_type": "directory",
+      "quarantine_path": "/content/dataset_excluded_non39_1787879067/test/shechuangzi/.ipynb_checkpoints",
+      "reason": "nested directory inside a class folder",
+      "split": "test"
+    },
+    {
+      "image_count": 0,
+      "item": "yingsuqiao/.ipynb_checkpoints",
+      "item_type": "directory",
+      "quarantine_path": "/content/dataset_excluded_non39_1787879067/test/yingsuqiao/.ipynb_checkpoints",
+      "reason": "nested directory inside a class folder",
+      "split": "test"
+    }
+  ],
+  "img_size": 224,
+  "patience": 15,
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+  "pretrained_weight": "/content/yolov12s-cls.pt",
+  "pretrained_weight_md5": "eef2947ef14ce9a4a728453f3c15fb9a",
+  "python": "3.13.15 (main, Aug  6 2026, 11:06:23) [GCC 11.4.0]",
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "torch": "2.11.0+cu128",
+  "ultralytics": "8.4.131",
+  "variants": [
+    "baseline",
+    "SE",
+    "CBAM",
+    "LTA"
+  ]
+}

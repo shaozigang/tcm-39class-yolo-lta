@@ -5,8 +5,12 @@ import pandas as pd
 import numpy as np
 import os
 
-T = "/home/user/workspace/supp_results/tables"
-OUT = "/home/user/workspace/figures"
+# Paths are relative to the repository root, so run this from there:
+#   python figures/make_figures.py
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+T = os.path.join(ROOT, "results", "multiseed_attention_ablation")
+X = os.path.join(ROOT, "results", "cross_architecture")
+OUT = os.path.join(ROOT, "figures")
 os.makedirs(OUT, exist_ok=True)
 
 plt.rcParams.update({
@@ -86,13 +90,17 @@ fig.savefig(f"{OUT}/fig_paired_bootstrap_deltas.png", bbox_inches="tight")
 plt.close(fig)
 
 # ---- Figure: accuracy vs robustness vs latency ----
-rob = pd.DataFrame({
-    "model": ["YOLOv12s-cls", "YOLOv12s-cls + LTA", "EfficientNet-B0"],
-    "clean": [82.39, 83.81, 84.43],
-    "avg_drop": [23.38, 25.69, 46.17],
-    "params": [6.02, 6.05, 4.06],
-    "latency": [0.856, 0.864, 1.739],
-})
+# Read straight from the released tables rather than restating the numbers.
+rob = pd.read_csv(f"{X}/synthetic_robustness.csv")
+rob["model"] = ["YOLOv12s-cls", "YOLOv12s-cls + LTA", "EfficientNet-B0"]
+eff = pd.read_csv(f"{T}/efficientnet_b0_metrics_complete.csv")
+lat = ms.set_index("variant")["inference_ms_mean"]
+rob["latency"] = [
+    float(lat["baseline"]),
+    float(lat["LTA"]),
+    float(eff["mean_inference_ms_per_image"].iloc[0]),
+]
+rob["params"] = rob["params_M"]
 fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.9))
 cols = [TEAL, DARK, RUST]
 ax = axes[0]

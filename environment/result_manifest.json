@@ -1,0 +1,316 @@
+{
+  "description": "Size and MD5 checksum of every file released in this repository except this manifest itself, with paths relative to the repository root.",
+  "file_count": 62,
+  "files": [
+    {
+      "path": ".zenodo.json",
+      "size_bytes": 1383,
+      "md5": "d5f219a45a75cc0eb0e32e5b04abd81a"
+    },
+    {
+      "path": "CITATION.cff",
+      "size_bytes": 1364,
+      "md5": "f8fa4535732cff08b71682e0975452a1"
+    },
+    {
+      "path": "LICENSE",
+      "size_bytes": 1068,
+      "md5": "bd258a2ee248780c7a52d2a5ebe7910a"
+    },
+    {
+      "path": "README.md",
+      "size_bytes": 13421,
+      "md5": "ca545476cd912b13df922f2e28706a68"
+    },
+    {
+      "path": "data/class_subset_definition.json",
+      "size_bytes": 2206,
+      "md5": "a9a65265d48cfd0dafaa7830f12c07e3"
+    },
+    {
+      "path": "environment/environment_and_protocol.json",
+      "size_bytes": 2466,
+      "md5": "b97555e1fed40450af81f77ed2453cfe"
+    },
+    {
+      "path": "environment/excluded_non39_items_audit.csv",
+      "size_bytes": 540,
+      "md5": "4fe34a29181c996aafd6cfb257368ac5"
+    },
+    {
+      "path": "environment/training_task_status.csv",
+      "size_bytes": 672,
+      "md5": "52213b6ec488a13a7f35d9f172a32ce8"
+    },
+    {
+      "path": "figures/fig_accuracy_robustness_latency.png",
+      "size_bytes": 186934,
+      "md5": "d0f743e121df657af7e622a68ccfda05"
+    },
+    {
+      "path": "figures/fig_multiseed_attention_ci.png",
+      "size_bytes": 118300,
+      "md5": "e4bea6e9cceae5c9efafc6d66dfcc073"
+    },
+    {
+      "path": "figures/fig_paired_bootstrap_deltas.png",
+      "size_bytes": 127275,
+      "md5": "95b197e3b86176095a2943aadfb8fc0e"
+    },
+    {
+      "path": "figures/make_figures.py",
+      "size_bytes": 5683,
+      "md5": "130ca1160e293373c93deef2507e1c31"
+    },
+    {
+      "path": "notebooks/01_cross_architecture_training_and_evaluation.ipynb",
+      "size_bytes": 569678,
+      "md5": "0fe700eade6e78766179ae737e85c397"
+    },
+    {
+      "path": "notebooks/02_multiseed_attention_ablation.ipynb",
+      "size_bytes": 59356,
+      "md5": "14cda56296d0178be400685db1109943"
+    },
+    {
+      "path": "results/confusion_matrices/confusion_matrix_yolov12s_cls_lta.jpg",
+      "size_bytes": 122452,
+      "md5": "4ba77bd48bac92088eed7d64dddaa19b"
+    },
+    {
+      "path": "results/confusion_matrices/confusion_matrix_yolov12s_cls_standard.jpg",
+      "size_bytes": 125563,
+      "md5": "3f200efd02aac23d93a0f70590587abf"
+    },
+    {
+      "path": "results/cross_architecture/augmentation_regime_comparison.csv",
+      "size_bytes": 333,
+      "md5": "a784aa44fa7248e31a5989eecec6decf"
+    },
+    {
+      "path": "results/cross_architecture/synthetic_robustness.csv",
+      "size_bytes": 339,
+      "md5": "32ab911471a6af928c483ae2275e3bc7"
+    },
+    {
+      "path": "results/cross_architecture/test_set_results.csv",
+      "size_bytes": 247,
+      "md5": "b699e77e2d74db7433d15bb60257c137"
+    },
+    {
+      "path": "results/cross_architecture/training_curves/training_curve_yolov12n_cls.csv",
+      "size_bytes": 3973,
+      "md5": "ecf5fb4b06f9da48207121b2e191403d"
+    },
+    {
+      "path": "results/cross_architecture/training_curves/training_curve_yolov12n_cls_lta.csv",
+      "size_bytes": 3830,
+      "md5": "8a220c6ad7ce6d76345ab848a1107970"
+    },
+    {
+      "path": "results/cross_architecture/training_curves/training_curve_yolov12s_cls.csv",
+      "size_bytes": 3985,
+      "md5": "a3a6695004ed55541824d3e5e9e68c23"
+    },
+    {
+      "path": "results/cross_architecture/training_curves/training_curve_yolov12s_cls_lta.csv",
+      "size_bytes": 3981,
+      "md5": "07edfdc4cd5d09aac6b11d0bac4c5b5c"
+    },
+    {
+      "path": "results/gradcam_corrected_cases/corrected_baifuzi_0.jpg",
+      "size_bytes": 313268,
+      "md5": "6990e4217cc380a1bf9f3aa3e7599d81"
+    },
+    {
+      "path": "results/gradcam_corrected_cases/corrected_baiguo_1.jpg",
+      "size_bytes": 265839,
+      "md5": "a7e1d8870fc7115279c612b13ba9d87c"
+    },
+    {
+      "path": "results/gradcam_corrected_cases/corrected_banxia_2.jpg",
+      "size_bytes": 260478,
+      "md5": "5ea00fd779e3607c9add21256e94449a"
+    },
+    {
+      "path": "results/gradcam_corrected_cases/corrected_banxia_3.jpg",
+      "size_bytes": 276373,
+      "md5": "a62767fb9406ac20742440cdd4aa9e9b"
+    },
+    {
+      "path": "results/gradcam_corrected_cases/corrected_banxia_4.jpg",
+      "size_bytes": 388662,
+      "md5": "e97ebd87f406e13308e013399a102ca9"
+    },
+    {
+      "path": "results/gradcam_corrected_cases/corrected_banxia_5.jpg",
+      "size_bytes": 274147,
+      "md5": "d2404f00657ad605e0ace557c0405cb3"
+    },
+    {
+      "path": "results/gradcam_corrected_cases/corrected_banxia_6.jpg",
+      "size_bytes": 297460,
+      "md5": "f322cc493c5e625629db58d20bd7396e"
+    },
+    {
+      "path": "results/gradcam_corrected_cases/corrected_beidougen_7.jpg",
+      "size_bytes": 331136,
+      "md5": "4518d31e29a2daa55d20cf2d01770877"
+    },
+    {
+      "path": "results/gradcam_corrected_cases/corrected_caowu_8.jpg",
+      "size_bytes": 333941,
+      "md5": "21680aa716c5b9f38bb01d08e5568383"
+    },
+    {
+      "path": "results/gradcam_corrected_cases/corrected_caowu_9.jpg",
+      "size_bytes": 326910,
+      "md5": "b05cab242f76731530c273d3518f227d"
+    },
+    {
+      "path": "results/gradcam_rescued_cases/rescued_baifuzi_0.jpg",
+      "size_bytes": 313268,
+      "md5": "6990e4217cc380a1bf9f3aa3e7599d81"
+    },
+    {
+      "path": "results/gradcam_rescued_cases/rescued_baiguo_1.jpg",
+      "size_bytes": 265839,
+      "md5": "a7e1d8870fc7115279c612b13ba9d87c"
+    },
+    {
+      "path": "results/gradcam_rescued_cases/rescued_banxia_2.jpg",
+      "size_bytes": 260478,
+      "md5": "5ea00fd779e3607c9add21256e94449a"
+    },
+    {
+      "path": "results/gradcam_rescued_cases/rescued_banxia_3.jpg",
+      "size_bytes": 276373,
+      "md5": "a62767fb9406ac20742440cdd4aa9e9b"
+    },
+    {
+      "path": "results/gradcam_rescued_cases/rescued_banxia_4.jpg",
+      "size_bytes": 388662,
+      "md5": "e97ebd87f406e13308e013399a102ca9"
+    },
+    {
+      "path": "results/gradcam_rescued_cases/rescued_banxia_5.jpg",
+      "size_bytes": 274147,
+      "md5": "d2404f00657ad605e0ace557c0405cb3"
+    },
+    {
+      "path": "results/gradcam_rescued_cases/rescued_banxia_6.jpg",
+      "size_bytes": 297460,
+      "md5": "f322cc493c5e625629db58d20bd7396e"
+    },
+    {
+      "path": "results/gradcam_rescued_cases/rescued_beidougen_7.jpg",
+      "size_bytes": 331136,
+      "md5": "4518d31e29a2daa55d20cf2d01770877"
+    },
+    {
+      "path": "results/gradcam_rescued_cases/rescued_caowu_8.jpg",
+      "size_bytes": 333941,
+      "md5": "21680aa716c5b9f38bb01d08e5568383"
+    },
+    {
+      "path": "results/gradcam_rescued_cases/rescued_caowu_9.jpg",
+      "size_bytes": 326910,
+      "md5": "b05cab242f76731530c273d3518f227d"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/attention_ablation_metrics.csv",
+      "size_bytes": 3933,
+      "md5": "2e887a714e49a47a8e6d8ab543f7eb3b"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/bootstrap_model_accuracy_ci.csv",
+      "size_bytes": 858,
+      "md5": "f4c72ab02f7fd8063ee6eda014723549"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/bootstrap_paired_differences.csv",
+      "size_bytes": 912,
+      "md5": "9197c8f4df819e2886e0b29b5c4ccd4a"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/efficientnet_b0_metrics_complete.csv",
+      "size_bytes": 379,
+      "md5": "7259ff54fb8b661bccf8098c448557e9"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/multiseed_delta_summary.csv",
+      "size_bytes": 211,
+      "md5": "66c0b3da58374e13a8e6bc0611456296"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/multiseed_summary.csv",
+      "size_bytes": 564,
+      "md5": "45381aec5a2075d92c39c3b5d8279b7c"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/efficientnet_b0_test_predictions.csv",
+      "size_bytes": 62119,
+      "md5": "f57cb4400e69fff4e7522ddd99814184"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/v12s_baseline_seed123_test_predictions.csv",
+      "size_bytes": 62434,
+      "md5": "f2a764e5b4a1623a798e1f21d4e1a1ec"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/v12s_baseline_seed2026_test_predictions.csv",
+      "size_bytes": 62500,
+      "md5": "d971ca6f231bbee354761c5d33cb87fa"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/v12s_baseline_seed42_test_predictions.csv",
+      "size_bytes": 62509,
+      "md5": "18bf60f6dd9f8e16488ac2d48b845b42"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/v12s_cbam_seed123_test_predictions.csv",
+      "size_bytes": 62403,
+      "md5": "51809a9aad9e71cbf97eb3a32adb2a48"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/v12s_cbam_seed2026_test_predictions.csv",
+      "size_bytes": 62424,
+      "md5": "7254b8c1b2e903791b938d79ffc3c06d"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/v12s_cbam_seed42_test_predictions.csv",
+      "size_bytes": 62427,
+      "md5": "962b23de15898c3f63c4c2607bdf3987"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/v12s_lta_seed123_test_predictions.csv",
+      "size_bytes": 62489,
+      "md5": "35a67a01f92be77cece21fbefdaa4634"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/v12s_lta_seed2026_test_predictions.csv",
+      "size_bytes": 62460,
+      "md5": "41fb2d2555ae7ddbc238258893814026"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/v12s_lta_seed42_test_predictions.csv",
+      "size_bytes": 62472,
+      "md5": "777802b726427a4c3251b7e7f125f50a"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/v12s_se_seed123_test_predictions.csv",
+      "size_bytes": 62421,
+      "md5": "eb13c157da174e85c85d05a2d0c0a9f2"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/v12s_se_seed2026_test_predictions.csv",
+      "size_bytes": 62428,
+      "md5": "b83aa6a7127e191da0e19335c2fe8233"
+    },
+    {
+      "path": "results/multiseed_attention_ablation/predictions/v12s_se_seed42_test_predictions.csv",
+      "size_bytes": 62564,
+      "md5": "128de9fd8e014c56da0b8a884145e768"
+    }
+  ]
+}

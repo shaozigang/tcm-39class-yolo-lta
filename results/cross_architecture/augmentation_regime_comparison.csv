@@ -1,0 +1,4 @@
+augmentation,test_top1,test_top5,checkpoint,notes
+no_aug,77.2,94.81,best.pt,resize + normalize only
+light_aug,78.93,94.97,best.pt,horizontal flip p=0.5
+strong_aug,82.39,96.07,best.pt,HSV jitter + flip + random erasing + RandAugment; rerun with checkpoints staged on local disk after the first run produced a corrupted checkpoint

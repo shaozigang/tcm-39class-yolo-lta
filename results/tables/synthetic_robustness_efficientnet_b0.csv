@@ -1,2 +1,0 @@
-model,clean,gaussian_blur,gaussian_noise,brightness_shift,blur_drop,noise_drop,brightness_drop,avg_drop
-EfficientNet-B0 (Baseline),84.43,22.48,19.18,73.11,61.95,65.25,11.32,46.17

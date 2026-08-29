@@ -1,6 +1,0 @@
-{
-  "model": "EfficientNet-B0 (Baseline)",
-  "params_M": 4.06,
-  "clean_top1": 84.43,
-  "n_test": 636
-}
