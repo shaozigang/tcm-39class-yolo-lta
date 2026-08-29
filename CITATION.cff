@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: "No reproducible accuracy gain from lightweight attention modules in fine-grained classification of 39 toxic Chinese herbal medicines"
+message: "If you use this software or the released analysis artefacts, please cite it."
+type: software
+authors:
+  - family-names: Shao
+    given-names: Zigang
+    orcid: "https://orcid.org/0009-0008-9105-1861"
+    affiliation: "The Second Affiliated Hospital of Heilongjiang University of Chinese Medicine"
+    email: shaozigang@163.com
+identifiers:
+  - type: url
+    value: "https://github.com/shaozigang/tcm-39class-yolo-lta"
+    description: GitHub repository
+repository-code: "https://github.com/shaozigang/tcm-39class-yolo-lta"
+url: "https://github.com/shaozigang/tcm-39class-yolo-lta"
+abstract: >
+  Code, twelve-run factorial metrics, bootstrap intervals, figures and analysis
+  notebooks for a 39-class plant-derived toxic Chinese herbal medicine image
+  classification benchmark. Lightweight attention modules (SE, CBAM, LTA)
+  produced no reproducible Top-1 accuracy gain relative to a no-attention
+  YOLOv12s-cls baseline across three random seeds.
+keywords:
+  - toxic Chinese herbal medicine
+  - fine-grained image classification
+  - attention mechanism
+  - reproducibility
+  - YOLO
+  - EfficientNet
+  - bootstrap confidence interval
+license: MIT
+version: "1.0.0"
+date-released: "2026-08-29"
