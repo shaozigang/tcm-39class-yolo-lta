@@ -15,6 +15,10 @@ Associated manuscript: submitted to *PeerJ Computer Science* as
 classification of 39 toxic Chinese herbal medicines: a multi-seed, bootstrap-interval
 evaluation of YOLOv12-cls and EfficientNet-B0".
 
+Archived snapshot: release v1.0.0 of this repository is permanently archived on Zenodo,
+DOI [10.5281/zenodo.22153695](https://doi.org/10.5281/zenodo.22153695). Citation
+metadata: `CITATION.cff`.
+
 ---
 
 ## 1. Dataset

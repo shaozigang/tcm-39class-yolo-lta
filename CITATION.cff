@@ -9,6 +9,9 @@ authors:
     affiliation: "The Second Affiliated Hospital of Heilongjiang University of Chinese Medicine"
     email: shaozigang@163.com
 identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22153695"
+    description: "Zenodo archive of release v1.0.0"
   - type: url
     value: "https://github.com/shaozigang/tcm-39class-yolo-lta"
     description: GitHub repository

@@ -9,8 +9,8 @@
     },
     {
       "path": "CITATION.cff",
-      "size_bytes": 1364,
-      "md5": "f8fa4535732cff08b71682e0975452a1"
+      "size_bytes": 1467,
+      "md5": "0ae9b6d23d7cf7c27e26704a9b65a4fe"
     },
     {
       "path": "LICENSE",
@@ -19,8 +19,8 @@
     },
     {
       "path": "README.md",
-      "size_bytes": 13421,
-      "md5": "ca545476cd912b13df922f2e28706a68"
+      "size_bytes": 13617,
+      "md5": "f7f5c1dd946b4c29213c58c493d46c1d"
     },
     {
       "path": "data/class_subset_definition.json",
