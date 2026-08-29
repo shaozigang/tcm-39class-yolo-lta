@@ -1,0 +1,13 @@
+variant,seed,status,best_path
+baseline,42,completed,v12s_baseline_seed42/weights/best.pt
+baseline,123,completed,v12s_baseline_seed123/weights/best.pt
+baseline,2026,completed,v12s_baseline_seed2026/weights/best.pt
+SE,42,completed,v12s_se_seed42/weights/best.pt
+SE,123,completed,v12s_se_seed123/weights/best.pt
+SE,2026,completed,v12s_se_seed2026/weights/best.pt
+CBAM,42,completed,v12s_cbam_seed42/weights/best.pt
+CBAM,123,completed,v12s_cbam_seed123/weights/best.pt
+CBAM,2026,completed,v12s_cbam_seed2026/weights/best.pt
+LTA,42,completed,v12s_lta_seed42/weights/best.pt
+LTA,123,completed,v12s_lta_seed123/weights/best.pt
+LTA,2026,completed,v12s_lta_seed2026/weights/best.pt
