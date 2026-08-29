@@ -1,14 +1,14 @@
 # Notebooks
 
-Live Colab (author working copy):
+Live Colab (current working copy, not deleted):
 
 https://colab.research.google.com/drive/1AYx5GPrWQpWgop6OnfbrBcdyQFlgXEc3
 
-That Colab is the full training + supplementary-attention pipeline used for the PeerJ manuscript.
+Cleaned, output-stripped copy exported from that Colab:
 
-Repository copies:
+https://drive.google.com/file/d/1vntxA3tlp8lcJDnKqd4Bgh6a-itZvHG9/view?usp=drivesdk
 
-- `training_and_evaluation_pipeline.ipynb` — full pipeline (steps 1–18 plus supplementary cells 20–26)
-- `supplementary_attention_ablation_pipeline.ipynb` — setup cells + factorial ablation / bootstrap cells
+Expected files in this folder:
 
-Outputs were stripped for GitHub. Re-run on Colab T4 to regenerate logs.
+- `training_and_evaluation_pipeline.ipynb`
+- `supplementary_attention_ablation_pipeline.ipynb`
